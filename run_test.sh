@@ -12,7 +12,7 @@ fi
 
 test_requirements_files=$(find . -name "test-requirements.txt")
 
-echo 'Found test-requirements.txt files:' "$test_requirements_files"
+echo 'Found test_requirements.txt files:' "$test_requirements_files"
 
 for requirements_file in $test_requirements_files
 do

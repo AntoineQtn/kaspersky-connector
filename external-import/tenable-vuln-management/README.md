@@ -189,7 +189,7 @@ Logging can be customized via the self.helper.connector_logger calls within the 
 Unit tests are available in /tests repository and can be run using pytest:
 
 ```shell
-pip install -r test-requirements.txt
+pip install -r test_requirements.txt
 python -m pytest ./tests
 ```
 

@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  connector-kaspersky:
+    build: .
+    image: opencti/connector-kaspersky:latest
+    environment:
+      - OPENCTI_URL=http://opencti:8080
+      - OPENCTI_TOKEN=${OPENCTI_ADMIN_TOKEN}
+      - CONNECTOR_ID=kaspersky-enrichment-${CONNECTOR_IDENTIFIER}
+      - CONNECTOR_TYPE=INTERNAL_ENRICHMENT
+      - CONNECTOR_NAME=Kaspersky Threat Intelligence
+      - CONNECTOR_SCOPE=File,Domain-Name,IPv4-Addr,IPv6-Addr,Url
+      - CONNECTOR_AUTO=false
+      - CONNECTOR_CONFIDENCE_LEVEL=85
+      - CONNECTOR_LOG_LEVEL=info
+      - KASPERSKY_API_KEY=${KASPERSKY_API_KEY}
+      - KASPERSKY_BASE_URL=https://tip.kaspersky.com/api/v1
+      - KASPERSKY_MAX_TLP=TLP:AMBER
+      - KASPERSKY_CREATE_INDICATORS=true
+    restart: always
+    depends_on:
+      - opencti

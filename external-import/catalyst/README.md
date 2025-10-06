@@ -85,6 +85,6 @@ To run tests on the connector, navigate to the tests directory and run pytest:
 
 ```shell
 cd tests
-pip install -r test-requirements.txt
+pip install -r test_requirements.txt
 pytest .
 ```

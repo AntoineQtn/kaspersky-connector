@@ -121,7 +121,7 @@ First, prepare your virtual environment:
 ```bash
 source src/env/bin/activate
 python -m pip install --upgrade pip
-python -m pip install -r tests/test-requirements.txt
+python -m pip install -r tests/test_requirements.txt
 ```
 
 Then, run tests: 
