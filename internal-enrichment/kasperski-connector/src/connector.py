@@ -25,13 +25,11 @@ class KasperskiConnector:
         """
         Initialize the Connector with necessary configurations
         """
-        # Load configuration file and connection helper
         self.config = config
         self.helper = helper
         self.client = ConnectorClient(self.helper, self.config)
         self.converter_to_stix = ConverterToStix(self.helper)
 
-        # Define variables
         self.author = None
         self.tlp = None
         self.stix_objects_list = []
@@ -44,31 +42,25 @@ class KasperskiConnector:
         self.helper.connector_logger.info("[KASPERSKY] Starting enrichment...")
 
         try:
-            # Get threat intelligence from Kaspersky TI
             kaspersky_data = self.client.get_threat_intelligence(value, obs_id)
 
             if not kaspersky_data:
                 self.helper.connector_logger.info("[KASPERSKY] No threat intelligence found")
                 return []
 
-            # Create the author (Kaspersky)
             self.author = self.converter_to_stix.create_author()
 
-            # Convert Kaspersky data into STIX2 objects
             stix_objects = []
 
-            # Create note with Kaspersky enrichment data
             note = self.converter_to_stix.create_note(kaspersky_data, obs_id)
             if note:
                 stix_objects.append(note)
 
-            # Create indicator if reputation is malicious/suspicious
             if kaspersky_data.get("reputation", "").lower() in ["malicious", "suspicious"]:
                 indicator = self.converter_to_stix.create_indicator(kaspersky_data, value, obs_id)
                 if indicator:
                     stix_objects.append(indicator)
 
-            # Add author to objects
             if self.author:
                 stix_objects.append(self.author)
 
